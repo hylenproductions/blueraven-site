@@ -48,14 +48,29 @@
 <!-- ─── NAV ─────────────────────────────────────────────────────── -->
 <nav>
 	<a href="/" class="monogram">BR</a>
-	<div class="nav-links">
+	<div class="nav-right">
 		<a
 			href="https://github.com/hylenproductions/blueraven"
 			target="_blank"
 			rel="noopener noreferrer"
 			class="nav-link">GitHub ↗</a
 		>
-		<a href="#stay-informed" class="nav-link">Stay Informed</a>
+		{#if submitted}
+			<span class="nav-success">you're on the list.</span>
+		{:else}
+			<form class="nav-form" onsubmit={handleSubscribe}>
+				<input
+					type="email"
+					name="email"
+					placeholder="your@email.com"
+					required
+					bind:value={email}
+				/>
+				<button type="submit" disabled={submitting}>
+					{submitting ? '...' : 'NOTIFY ME'}
+				</button>
+			</form>
+		{/if}
 	</div>
 </nav>
 
@@ -76,10 +91,11 @@
 			href="https://github.com/hylenproductions/blueraven"
 			target="_blank"
 			rel="noopener noreferrer"
-			class="cta-link"
+			class="cta-btn"
 			style="--d:1.1s"
 		>
-			Read the protocol →
+			<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+			View the spec
 		</a>
 
 		<div class="gh-badge" style="--d:1.35s">
@@ -105,7 +121,7 @@
 <section class="manifesto">
 	<div class="container">
 		<div class="manifesto-layout">
-			<p class="section-label">// MANIFESTO</p>
+			<p class="section-label">MANIFESTO</p>
 			<div class="manifesto-body">
 				<p>
 					We're at the beginning of something. People are building their own operating systems — for
@@ -118,7 +134,6 @@
 					Every piece of hardware routes your data through someone else's server — someone with a
 					financial interest in what you do with it.
 				</p>
-				<p class="pullquote">That's not a foundation. That's a liability.</p>
 				<p>
 					Blue Raven is the alternative. An open protocol. A certification standard. A guarantee
 					that hardware carrying our name puts you in control of your data, your endpoints, and your
@@ -138,7 +153,7 @@
 <!-- ─── FOR BUILDERS ─────────────────────────────────────────────── -->
 <section class="builders">
 	<div class="container">
-		<p class="section-label">// FOR BUILDERS</p>
+		<p class="section-label">FOR BUILDERS</p>
 		<div class="builders-cols">
 			<div class="builder-col">
 				<p>Building an app and need hardware<br />that doesn't route through Amazon?</p>
@@ -158,34 +173,6 @@
 		>
 			Read the protocol spec on GitHub ↗
 		</a>
-	</div>
-</section>
-
-<!-- ─── STAY INFORMED ────────────────────────────────────────────── -->
-<section class="email-capture" id="stay-informed">
-	<div class="container">
-		<p class="section-label">// STAY INFORMED</p>
-		<h2 class="email-headline">The open hardware layer<br />is being built.</h2>
-		<p class="email-subtext">
-			Follow the protocol. Follow the certified products.<br />Stay out of the closed ecosystems.
-		</p>
-
-		{#if submitted}
-			<p class="success">// you're on the list.</p>
-		{:else}
-			<form class="email-form" onsubmit={handleSubscribe}>
-				<input
-					type="email"
-					name="email"
-					placeholder="your@email.com"
-					required
-					bind:value={email}
-				/>
-				<button type="submit" disabled={submitting}>
-					{submitting ? '...' : 'JOIN THE LIST'}
-				</button>
-			</form>
-		{/if}
 	</div>
 </section>
 
@@ -277,6 +264,34 @@
 		opacity: 0.65;
 	}
 
+	/* ─── Hero GitHub button ────────────────────────────────────── */
+	.cta-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 9px;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.82rem;
+		color: #ccc;
+		text-decoration: none;
+		letter-spacing: 0.04em;
+		border: 1px solid #2e2e2e;
+		border-radius: 3px;
+		padding: 10px 18px;
+		transition: border-color 0.2s, color 0.2s;
+		animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both;
+	}
+	.cta-btn:hover {
+		border-color: #4a9eff;
+		color: white;
+	}
+	.cta-btn svg {
+		opacity: 0.5;
+		flex-shrink: 0;
+	}
+	.cta-btn:hover svg {
+		opacity: 1;
+	}
+
 	/* ─── GitHub badge ──────────────────────────────────────────── */
 	.gh-badge {
 		display: inline-block;
@@ -342,9 +357,59 @@
 		text-decoration: none;
 		letter-spacing: 0.06em;
 	}
-	.nav-links {
+	.nav-right {
 		display: flex;
-		gap: 36px;
+		align-items: center;
+		gap: 24px;
+	}
+	.nav-form {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+	.nav-form input {
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid #252525;
+		border-radius: 2px;
+		padding: 7px 12px;
+		color: white;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.68rem;
+		width: 158px;
+		outline: none;
+		transition: border-color 0.2s;
+	}
+	.nav-form input::placeholder {
+		color: #333;
+	}
+	.nav-form input:focus {
+		border-color: #4a9eff;
+	}
+	.nav-form button {
+		background: transparent;
+		border: 1px solid #4a9eff;
+		border-radius: 2px;
+		color: #4a9eff;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.6rem;
+		letter-spacing: 0.12em;
+		padding: 7px 12px;
+		cursor: inherit;
+		white-space: nowrap;
+		transition: background 0.2s, color 0.2s;
+	}
+	.nav-form button:hover:not(:disabled) {
+		background: #4a9eff;
+		color: #0d0d0d;
+	}
+	.nav-form button:disabled {
+		opacity: 0.4;
+	}
+	.nav-success {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.68rem;
+		color: #4a9eff;
+		letter-spacing: 0.08em;
 	}
 	.nav-link {
 		font-family: 'Space Mono', monospace;
@@ -424,16 +489,6 @@
 		color: white;
 		line-height: 1.85;
 	}
-	/* Higher specificity to override .manifesto-body p rules */
-	.manifesto-body .pullquote {
-		font-family: 'Space Mono', monospace;
-		font-size: clamp(1rem, 1.35vw, 1.1rem);
-		color: #bbb;
-		line-height: 1.7;
-		border-left: 2px solid #4a9eff;
-		padding-left: 28px;
-		margin: 8px 0;
-	}
 	/* "You." — the intentional grid break */
 	.manifesto-body .you {
 		font-family: 'Space Mono', monospace;
@@ -474,77 +529,6 @@
 		max-width: 640px;
 	}
 
-	/* ─── EMAIL CAPTURE ─────────────────────────────────────────── */
-	.email-capture {
-		padding: 140px 0;
-		border-top: 1px solid #181818;
-	}
-	.email-headline {
-		font-family: 'Space Mono', monospace;
-		font-size: clamp(1.5rem, 2.8vw, 2.3rem);
-		font-weight: 700;
-		color: white;
-		line-height: 1.3;
-		margin-bottom: 20px;
-	}
-	.email-subtext {
-		font-family: 'Syne', sans-serif;
-		font-size: clamp(0.9rem, 1.1vw, 0.98rem);
-		color: #555;
-		line-height: 1.75;
-		margin-bottom: 52px;
-	}
-	.email-form {
-		display: flex;
-		gap: 10px;
-		max-width: 500px;
-	}
-	.email-form input[type='email'] {
-		flex: 1;
-		background: #111;
-		border: 1px solid #252525;
-		border-radius: 2px;
-		padding: 13px 18px;
-		color: white;
-		font-family: 'Space Mono', monospace;
-		font-size: 0.82rem;
-		outline: none;
-		transition: border-color 0.2s;
-		min-width: 0;
-	}
-	.email-form input[type='email']::placeholder {
-		color: #3a3a3a;
-	}
-	.email-form input[type='email']:focus {
-		border-color: #4a9eff;
-	}
-	.email-form button {
-		background: #4a9eff;
-		color: #0d0d0d;
-		border: none;
-		border-radius: 2px;
-		padding: 13px 22px;
-		font-family: 'Space Mono', monospace;
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0.12em;
-		white-space: nowrap;
-		cursor: inherit;
-		transition: opacity 0.2s;
-	}
-	.email-form button:hover:not(:disabled) {
-		opacity: 0.82;
-	}
-	.email-form button:disabled {
-		opacity: 0.45;
-	}
-	.success {
-		font-family: 'Space Mono', monospace;
-		font-size: 1.05rem;
-		color: #4a9eff;
-		letter-spacing: 0.05em;
-	}
-
 	/* ─── FOOTER ────────────────────────────────────────────────── */
 	footer {
 		border-top: 1px solid #222;
@@ -570,8 +554,11 @@
 		nav {
 			padding: 20px 24px;
 		}
-		.nav-links {
-			gap: 20px;
+		.nav-right {
+			gap: 12px;
+		}
+		.nav-form input {
+			width: 120px;
 		}
 		.hero {
 			padding: 48px 0 96px;
@@ -596,13 +583,6 @@
 		.builders-cols {
 			grid-template-columns: 1fr;
 			gap: 28px;
-		}
-		.email-capture {
-			padding: 96px 0;
-		}
-		.email-form {
-			flex-direction: column;
-			max-width: 100%;
 		}
 		.footer-inner {
 			flex-direction: column;
