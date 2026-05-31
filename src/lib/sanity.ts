@@ -1,21 +1,19 @@
 import { createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import { createImageUrlBuilder } from '@sanity/image-url'
 import {
 	PUBLIC_SANITY_PROJECT_ID,
 	PUBLIC_SANITY_DATASET,
-	PUBLIC_SANITY_API_VERSION
+	PUBLIC_SANITY_API_VERSION,
 } from '$env/static/public'
 
-export const sanity = createClient({
+export const client = createClient({
 	projectId: PUBLIC_SANITY_PROJECT_ID,
 	dataset: PUBLIC_SANITY_DATASET,
 	apiVersion: PUBLIC_SANITY_API_VERSION,
-	useCdn: true
+	useCdn: true,
 })
 
-const builder = imageUrlBuilder(sanity)
+const builder = createImageUrlBuilder(client)
 
-export function urlFor(source: SanityImageSource) {
-	return builder.image(source)
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const urlFor = (source: any) => builder.image(source)
