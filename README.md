@@ -1,6 +1,9 @@
 # Blue Raven
 
-Open protocol and hardware marketplace for indie IoT builders.
+Bluetooth standardized how devices talk. Blue Raven standardizes who they answer to.
+
+Blue Raven is an open protocol and certification standard for IoT hardware. If a device is Blue Raven certified, the data it generates belongs to the person who owns it — not a platform, not a corporation, not a cloud they didn't choose. No lock-in. No conflict of interest. No subscription to access your own sensor data.
+
 Site: https://blueraven.build
 
 ## Stack
@@ -12,7 +15,7 @@ Site: https://blueraven.build
 - DNS: Cloudflare
 
 ## Setup
-Copy .env.example to .env and fill in values before running.
+Copy `.env.example` to `.env` and fill in values before running.
 
 ## Dev
 ```
