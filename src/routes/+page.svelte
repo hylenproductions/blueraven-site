@@ -63,10 +63,8 @@
 <section class="hero">
 	<div class="container">
 		<h1 class="hero-headline">
-			<span class="line" style="--d:0.1s">Your data shouldn't</span>
-			<span class="line" style="--d:0.25s">belong to someone</span>
-			<span class="line" style="--d:0.4s">trying to sell you</span>
-			<span class="line" style="--d:0.55s">something.</span>
+			<span class="line" style="--d:0.1s">Bluetooth standardized how devices talk.</span>
+			<span class="line" style="--d:0.75s">Blue Raven standardizes who they answer to.</span>
 		</h1>
 		<p class="hero-body" style="--d:0.85s">
 			Blue Raven is an open protocol and certification standard<br />
@@ -83,6 +81,23 @@
 		>
 			Read the protocol →
 		</a>
+
+		<div class="gh-badge" style="--d:1.35s">
+			<div class="gh-badge-top">
+				<span class="gh-badge-label">Open Protocol</span>
+				<a
+					href="https://github.com/hylenproductions/blueraven"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="gh-badge-url"
+				>
+					github.com/hylenproductions/blueraven ↗
+				</a>
+			</div>
+			<p class="gh-badge-tagline">
+				Read the spec. Fork it. Build on it. Judge us by what's there.
+			</p>
+		</div>
 	</div>
 </section>
 
@@ -260,6 +275,48 @@
 	}
 	.cta-link:hover {
 		opacity: 0.65;
+	}
+
+	/* ─── GitHub badge ──────────────────────────────────────────── */
+	.gh-badge {
+		display: inline-block;
+		margin-top: 44px;
+		padding: 18px 24px;
+		border: 1px solid rgba(74, 158, 255, 0.22);
+		border-left: 2px solid #4a9eff;
+		background: rgba(74, 158, 255, 0.03);
+		animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both;
+	}
+	.gh-badge-top {
+		display: flex;
+		align-items: baseline;
+		gap: 14px;
+		flex-wrap: wrap;
+		margin-bottom: 10px;
+	}
+	.gh-badge-label {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.62rem;
+		color: #4a9eff;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+	}
+	.gh-badge-url {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.8rem;
+		color: #ccc;
+		text-decoration: none;
+		letter-spacing: 0.01em;
+		transition: color 0.2s;
+	}
+	.gh-badge-url:hover {
+		color: #4a9eff;
+	}
+	.gh-badge-tagline {
+		font-family: 'Syne', sans-serif;
+		font-size: 0.78rem;
+		color: #444;
+		line-height: 1.55;
 	}
 
 	/* ─── NAV ───────────────────────────────────────────────────── */
