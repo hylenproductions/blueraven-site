@@ -1,5 +1,5 @@
--- Applied to project lsnwtodjzoxuwkvrdxtg (blueraven-site) on 2026-06-11
--- via the Supabase MCP. Kept here as the source of record.
+-- Applied to project fwutloehgtvqywdestcl (Blue Raven-Site, Blue Raven org)
+-- on 2026-06-11 via the SQL editor. Kept here as the source of record.
 
 -- Ideas: curated by owner via dashboard/service role only.
 create table public.ideas (
