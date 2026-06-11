@@ -27,7 +27,8 @@
 			<p class="section-label">CONTACT</p>
 			<h2>Talk to us.</h2>
 			<p class="sub">
-				Building something? Making hardware? Just curious?<br />
+				Building something for yourself? Making hardware? Done asking corporations for permission?<br
+				/>
 				We read everything.
 			</p>
 		</div>

@@ -46,8 +46,12 @@
 		<div class="grid">
 			<div class="pitch">
 				<p class="lead">
-					The people building their own operating systems shouldn't have to beg platforms for their
-					own data. Ambassadors are the founding members of the your-device-your-data movement.
+					This is a rebellion against corporate-owned devices and corporate-owned data. Ambassadors
+					are its founding members: people who build for themselves, never for a corporation.
+				</p>
+				<p class="lead-sub">
+					Signing up isn't joining a mailing list. It's putting your name on the side that says your
+					hardware answers to you.
 				</p>
 				<ul class="perks">
 					<li>
@@ -161,6 +165,11 @@
 		font-weight: 500;
 		font-size: 1.25rem;
 		line-height: 1.55;
+		margin-bottom: 18px;
+	}
+	.lead-sub {
+		color: var(--slate);
+		line-height: 1.75;
 		margin-bottom: 36px;
 	}
 	.perks {

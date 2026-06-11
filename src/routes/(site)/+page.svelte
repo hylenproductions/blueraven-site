@@ -80,11 +80,45 @@
 <section class="thesis">
 	<div class="container">
 		<p class="thesis-line">
-			Think of it like Bluetooth: a common language for hardware. Except instead of just
-			standardizing how devices talk, <span class="accent-text"
-				>Blue Raven standardizes who they answer to.</span
-			>
+			Build for yourself. <span class="accent-text">Never for a corporation.</span>
 		</p>
+		<p class="thesis-sub">
+			Every account, every subscription, every "works with" badge is a leash. Blue Raven hardware
+			has no leash to hold.
+		</p>
+	</div>
+</section>
+
+<!-- ─── THE LANDSCAPE ────────────────────────────────────────────── -->
+<section class="landscape">
+	<div class="container">
+		<SectionLabel text="THE LANDSCAPE" />
+		<div class="grid-3 landscape-grid">
+			<div class="land-col">
+				<h3>"Works with" ecosystems</h3>
+				<p>
+					The device answers to Amazon, Google, or Apple. Your data lives in their cloud, behind
+					their account, under their terms. When they sunset the service, your hardware dies with
+					it.
+				</p>
+			</div>
+			<div class="land-col">
+				<h3>Matter</h3>
+				<p>
+					A real step: one standard so devices from different brands can talk. But it is run by a
+					consortium of those same corporations, certification costs thousands, and you still drive
+					everything through their controller apps. Built for manufacturers selling into ecosystems.
+				</p>
+			</div>
+			<div class="land-col highlight">
+				<h3>Blue Raven</h3>
+				<p>
+					Built for people building for themselves. The device posts to your endpoint or answers
+					your queries on your own network. No account, no controller app, no consortium fee. Apache
+					2.0: fork it and judge us by what's there.
+				</p>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -287,16 +321,59 @@
 	}
 	.thesis-line {
 		font-family: var(--font-display);
-		font-weight: 500;
-		font-size: clamp(1.5rem, 3vw, 2.4rem);
-		line-height: 1.35;
+		font-weight: 600;
+		font-size: clamp(1.8rem, 4vw, 3.2rem);
+		line-height: 1.25;
 		letter-spacing: -0.01em;
 		text-align: center;
 		max-width: 920px;
-		margin: 0 auto;
+		margin: 0 auto 20px;
 	}
 	.accent-text {
 		color: var(--blue);
+	}
+	.thesis-sub {
+		color: var(--slate);
+		text-align: center;
+		max-width: 560px;
+		margin: 0 auto;
+		line-height: 1.75;
+	}
+
+	/* ─── THE LANDSCAPE ─────────────────────────────────────────── */
+	.landscape {
+		padding: var(--space-section) 0;
+		border-top: 1px solid var(--line);
+	}
+	.landscape-grid {
+		margin-top: 52px;
+		gap: clamp(24px, 3vw, 40px);
+	}
+	.land-col {
+		padding: clamp(24px, 3vw, 32px);
+		border: 1px solid var(--line);
+		border-radius: var(--radius-card);
+		background: var(--glass-bg);
+	}
+	.land-col h3 {
+		font-size: var(--text-h3);
+		margin-bottom: 14px;
+		color: var(--slate);
+	}
+	.land-col p {
+		color: var(--slate);
+		font-size: 0.93rem;
+		line-height: 1.75;
+	}
+	.land-col.highlight {
+		border-color: rgba(91, 124, 255, 0.4);
+		background: var(--blue-soft);
+	}
+	.land-col.highlight h3 {
+		color: var(--blue);
+	}
+	.land-col.highlight p {
+		color: var(--paper);
 	}
 
 	/* ─── FEATURES ──────────────────────────────────────────────── */
