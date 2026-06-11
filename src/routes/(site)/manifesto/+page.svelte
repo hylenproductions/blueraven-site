@@ -69,7 +69,7 @@
 	}
 	.body p.you {
 		font-family: var(--font-display);
-		font-weight: 700;
+		font-weight: 900;
 		font-size: clamp(5rem, 16vw, 13rem);
 		line-height: 0.9;
 		letter-spacing: -0.04em;

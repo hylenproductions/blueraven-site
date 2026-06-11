@@ -257,7 +257,8 @@
 		flex-wrap: wrap;
 	}
 	.chip {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.66rem;
 		letter-spacing: 0.14em;
 		color: var(--slate);
@@ -271,7 +272,8 @@
 		border-color: var(--blue);
 	}
 	.mode {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.66rem;
 		letter-spacing: 0.14em;
 		color: var(--blue);
@@ -282,7 +284,7 @@
 	}
 	.hook {
 		font-family: var(--font-display);
-		font-weight: 500;
+		font-weight: 600;
 		font-size: 1.05rem;
 		color: var(--paper);
 		margin-bottom: 12px;

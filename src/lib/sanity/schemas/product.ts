@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity';
 
 export default defineType({
 	name: 'product',
@@ -13,7 +13,7 @@ export default defineType({
 			name: 'status',
 			type: 'string',
 			title: 'Status',
-			options: { list: ['coming_soon', 'pre_order', 'available', 'sold_out'] },
+			options: { list: ['coming_soon', 'pre_order', 'available', 'sold_out'] }
 		}),
 		defineField({ name: 'preOrderDate', type: 'date', title: 'Pre-order Date' }),
 		defineField({ name: 'price', type: 'number', title: 'Price (USD)' }),
@@ -21,10 +21,10 @@ export default defineType({
 			name: 'image',
 			type: 'image',
 			title: 'Product Image',
-			options: { hotspot: true },
+			options: { hotspot: true }
 		}),
 		defineField({ name: 'shopifyProductId', type: 'string', title: 'Shopify Product ID' }),
 		defineField({ name: 'githubUrl', type: 'url', title: 'GitHub URL' }),
-		defineField({ name: 'order', type: 'number', title: 'Display Order' }),
-	],
-})
+		defineField({ name: 'order', type: 'number', title: 'Display Order' })
+	]
+});

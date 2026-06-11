@@ -53,7 +53,7 @@
 	}
 	.wordmark {
 		font-family: var(--font-display);
-		font-weight: 700;
+		font-weight: 900;
 		letter-spacing: 0.14em;
 		margin-bottom: 14px;
 	}
@@ -68,7 +68,8 @@
 		gap: 10px;
 	}
 	.col-title {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
@@ -96,7 +97,8 @@
 		border-top: 1px solid var(--line);
 	}
 	.bottom span {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.72rem;
 		letter-spacing: 0.04em;
 		color: var(--slate);

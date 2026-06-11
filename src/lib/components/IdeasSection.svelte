@@ -89,9 +89,9 @@
 
 	{#if ideas && ideas.length > 0}
 		<ol class="list">
-			{#each ideas as idea, i (idea.id)}
+			{#each ideas as idea (idea.id)}
 				<li class="idea">
-					<span class="rank">{String(i + 1).padStart(2, '0')}</span>
+					<span class="rank" aria-hidden="true">◆</span>
 					<div class="copy">
 						<h3>{idea.title}</h3>
 						<p>{idea.description}</p>
@@ -181,8 +181,7 @@
 		border-top: 1px solid var(--line);
 	}
 	.rank {
-		font-family: var(--font-mono);
-		font-size: 0.85rem;
+		font-size: 0.55rem;
 		color: var(--blue);
 		flex-shrink: 0;
 	}
@@ -227,7 +226,8 @@
 		opacity: 1;
 	}
 	.count {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.8rem;
 		color: var(--blue);
 	}
@@ -284,7 +284,8 @@
 		opacity: 0.6;
 	}
 	.sent {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.85rem;
 		letter-spacing: 0.04em;
 		color: var(--blue);

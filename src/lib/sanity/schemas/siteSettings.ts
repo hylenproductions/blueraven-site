@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity';
 
 export default defineType({
 	name: 'siteSettings',
@@ -7,6 +7,6 @@ export default defineType({
 	fields: [
 		defineField({ name: 'headline', type: 'string', title: 'Hero Headline' }),
 		defineField({ name: 'subheadline', type: 'text', title: 'Hero Subheadline' }),
-		defineField({ name: 'manifestoStatement', type: 'text', title: 'Manifesto Statement' }),
-	],
-})
+		defineField({ name: 'manifestoStatement', type: 'text', title: 'Manifesto Statement' })
+	]
+});

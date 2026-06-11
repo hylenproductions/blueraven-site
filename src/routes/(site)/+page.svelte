@@ -234,7 +234,8 @@
 		animation-delay: 0.55s;
 	}
 	.stats {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.18em;
 		color: var(--slate);
@@ -301,7 +302,7 @@
 	}
 	.mark-word {
 		font-family: var(--font-display);
-		font-weight: 700;
+		font-weight: 900;
 		font-size: clamp(3.4rem, 11vw, 9.5rem);
 		line-height: 1;
 		letter-spacing: -0.03em;

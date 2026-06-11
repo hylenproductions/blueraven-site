@@ -123,7 +123,8 @@
 		margin: 20px 0 14px;
 	}
 	.hosted {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.22em;
 		color: var(--slate);
@@ -140,13 +141,14 @@
 	}
 	.date-big {
 		font-family: var(--font-display);
-		font-weight: 700;
+		font-weight: 900;
 		font-size: 2rem;
 		color: var(--blue);
 		letter-spacing: 0.04em;
 	}
 	.date-sub {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.66rem;
 		letter-spacing: 0.14em;
 		color: var(--slate);
@@ -162,7 +164,7 @@
 	}
 	.lead {
 		font-family: var(--font-display);
-		font-weight: 500;
+		font-weight: 600;
 		font-size: 1.25rem;
 		line-height: 1.55;
 		margin-bottom: 18px;
@@ -215,7 +217,8 @@
 		gap: 8px;
 	}
 	label span:not(.check-text) {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.16em;
 		text-transform: uppercase;

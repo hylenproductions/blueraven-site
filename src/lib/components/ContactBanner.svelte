@@ -103,7 +103,8 @@
 		gap: 8px;
 	}
 	label span {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.16em;
 		text-transform: uppercase;

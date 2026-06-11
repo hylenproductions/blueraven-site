@@ -97,7 +97,8 @@
 		opacity: 0.6;
 	}
 	.sent {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.8rem;
 		letter-spacing: 0.06em;
 		color: var(--blue);

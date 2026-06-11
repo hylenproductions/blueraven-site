@@ -7,22 +7,22 @@
 
 	const cases = [
 		{
-			tag: '01 · HARDWARE MAKERS',
+			tag: 'HARDWARE MAKERS',
 			title: 'Certification your customers can trust.',
 			body: 'You make devices and you’re competing against platforms that monetize their users’ data. Blue Raven certification is a verifiable promise: works without an account, exposes data locally, keeps working if you ever shut down. That trust is a feature no platform can copy.'
 		},
 		{
-			tag: '02 · TINKERERS & INTEGRATORS',
+			tag: 'TINKERERS & INTEGRATORS',
 			title: 'Data sovereignty by default.',
 			body: 'You wire things together. Homelab, automation, weird experiments. Every Blue Raven device is permissionless by design: open spec, local endpoints, no sign-up walls. Fork the protocol, extend it, and own every byte your hardware generates.'
 		},
 		{
-			tag: '03 · AI-READY BY SPEC',
+			tag: 'AI-READY BY SPEC',
 			title: 'Your device, integrated in one fetch.',
 			body: 'Every certified device exposes a /br/manifest endpoint: a machine-readable description of its capabilities. Your customers point their AI tools at it and the integration writes itself. Certification means your hardware works with the coding agents your buyers already use.'
 		},
 		{
-			tag: '04 · OPEN SPEC, APACHE 2.0',
+			tag: 'OPEN SPEC, APACHE 2.0',
 			title: 'The gray areas you hit shape the spec.',
 			body: 'Seven rules, no royalties, no member fees, no vendor consortium. If your device almost complies, open an issue: the edge cases real builders hit are exactly what the next version addresses. Built a compliant device already? Certification is a weekend.'
 		}
@@ -91,7 +91,8 @@
 		gap: 24px;
 	}
 	.tag {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.18em;
 		color: var(--blue);

@@ -24,8 +24,9 @@
 	--glass-highlight: inset 0 1px 0 rgba(242, 239, 230, 0.07);
 	--glass-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.6);
 
-	/* Type */
-	--font-display: 'Clash Display', 'Arial Black', sans-serif;
+	/* Type: Fraunces for headlines, Satoshi for everything else.
+	   Mono is reserved for device data only (IDs, EMITS lines). */
+	--font-display: 'Fraunces', Georgia, serif;
 	--font-body: 'Satoshi', -apple-system, 'Segoe UI', sans-serif;
 	--font-mono: 'Geist Mono', 'SF Mono', monospace;
 
@@ -107,9 +108,9 @@ h1,
 h2,
 h3 {
 	font-family: var(--font-display);
-	font-weight: 600;
-	line-height: 1.08;
-	letter-spacing: -0.02em;
+	font-weight: 900;
+	line-height: 1.12;
+	letter-spacing: -0.01em;
 }
 
 /* ─── Utilities ─────────────────────────────────────────────── */
@@ -119,12 +120,13 @@ h3 {
 	padding-inline: var(--pad-x);
 }
 
+/* The ONE label style: used for section eyebrows and card tags alike. */
 .section-label {
-	font-family: var(--font-mono);
-	font-size: var(--text-label);
-	font-weight: 500;
+	font-family: var(--font-body);
+	font-size: 0.8rem;
+	font-weight: 700;
 	color: var(--blue);
-	letter-spacing: 0.22em;
+	letter-spacing: 0.14em;
 	text-transform: uppercase;
 }
 

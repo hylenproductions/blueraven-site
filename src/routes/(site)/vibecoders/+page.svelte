@@ -45,7 +45,7 @@
 
 		<div class="cards">
 			<GlassCard glow>
-				<p class="tag">01 · APP BUILDERS</p>
+				<p class="tag">APP BUILDERS</p>
 				<h2>Hardware that doesn’t route through Amazon.</h2>
 				<p class="body">
 					You’re shipping an app that needs real-world inputs: weight, temperature, moisture,
@@ -54,7 +54,7 @@
 				</p>
 			</GlassCard>
 			<GlassCard glow>
-				<p class="tag">02 · PERSONAL OS BUILDERS</p>
+				<p class="tag">PERSONAL OS BUILDERS</p>
 				<h2>Sensors that feed your stack, not theirs.</h2>
 				<p class="body">
 					You’re building personal infrastructure: health, home, garden, kitchen. Every certified
@@ -68,7 +68,7 @@
 			<p class="path-title">THE PATH</p>
 			<ol>
 				<li>
-					<span class="step">1</span>
+					<span class="step" aria-hidden="true">→</span>
 					<div>
 						<h3>Pick your hardware</h3>
 						<p>
@@ -78,7 +78,7 @@
 					</div>
 				</li>
 				<li>
-					<span class="step">2</span>
+					<span class="step" aria-hidden="true">→</span>
 					<div>
 						<h3>Or flash one today</h3>
 						<p>
@@ -89,7 +89,7 @@
 					</div>
 				</li>
 				<li>
-					<span class="step">3</span>
+					<span class="step" aria-hidden="true">→</span>
 					<div>
 						<h3>Point it at your stack</h3>
 						<p>
@@ -139,7 +139,8 @@
 		gap: 22px;
 	}
 	.story-label {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.18em;
 		color: var(--blue);
@@ -149,7 +150,7 @@
 	}
 	.story-punch {
 		font-family: var(--font-display);
-		font-weight: 500;
+		font-weight: 600;
 		font-size: 1.25rem;
 		line-height: 1.5;
 	}
@@ -164,7 +165,8 @@
 		margin-bottom: clamp(56px, 7vw, 88px);
 	}
 	.tag {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.18em;
 		color: var(--blue);
@@ -184,7 +186,8 @@
 		margin-bottom: clamp(48px, 6vw, 72px);
 	}
 	.path-title {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: var(--text-label);
 		letter-spacing: 0.18em;
 		color: var(--blue);
@@ -203,15 +206,9 @@
 		align-items: flex-start;
 	}
 	.step {
-		font-family: var(--font-mono);
 		color: var(--blue);
-		border: 1px solid rgba(91, 124, 255, 0.4);
-		border-radius: 50%;
-		width: 34px;
-		height: 34px;
-		display: grid;
-		place-items: center;
-		font-size: 0.85rem;
+		font-size: 1.15rem;
+		line-height: 1.4;
 		flex-shrink: 0;
 	}
 	h3 {

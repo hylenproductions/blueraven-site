@@ -51,7 +51,8 @@
 		min-height: 38px;
 	}
 	.date {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.66rem;
 		letter-spacing: 0.14em;
 		color: var(--ink);
@@ -65,7 +66,8 @@
 		font-weight: 500;
 	}
 	.cta {
-		font-family: var(--font-mono);
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.74rem;
 		letter-spacing: 0.06em;
 		color: var(--blue);
