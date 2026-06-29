@@ -1,15 +1,99 @@
 import { json } from '@sveltejs/kit';
 import { SLACK_WEBHOOK_URL, CRON_SECRET } from '$env/static/private';
 
-const KEYWORDS = [
-	'"IoT protocol"',
-	'"device interoperability"',
-	'"smart home protocol"',
-	'"open IoT"',
-	'"IoT standard"',
-	'"Matter alternative"',
-	'"Zigbee alternative"',
-	'blueraven'
+// Each search is either a global phrase or a subreddit-scoped query.
+// Subreddit searches let us use broader terms in communities where they're relevant
+// without drowning in noise from the global firehose.
+type Search = { query: string; subreddit?: string };
+
+const SEARCHES: Search[] = [
+	// ── Vibe coding + AI + hardware ──────────────────────────────────────
+	{ query: '"vibe coding" hardware' },
+	{ query: '"vibe coding" sensors' },
+	{ query: '"AI app" hardware sensors' },
+	{ query: 'LLM "home automation"' },
+	{ query: '"building with AI" hardware' },
+	{ query: '"cursor" OR "claude" hardware sensors' },
+	{ query: 'hardware inputs "AI agent"' },
+	{ query: '"personal OS" hardware sensors' },
+
+	// ── Jailbreak / unlock / local-first ─────────────────────────────────
+	{ query: '"local API" "smart home"' },
+	{ query: '"no cloud" IoT sensor' },
+	{ query: '"offline" "smart home" local' },
+	{ query: '"bypass cloud" IoT' },
+	{ query: '"smart home" "without subscription"' },
+	{ query: '"jailbreak" smart home device' },
+	{ query: '"remove cloud" smart home' },
+	{ query: '"local only" smart home' },
+
+	// ── Homelab + self-hosted automation ─────────────────────────────────
+	{ query: 'ESP32 webhook REST sensors' },
+	{ query: 'ESP32 "home automation" app' },
+	{ query: '"raspberry pi" sensors "home automation"' },
+	{ query: '"self hosted" sensors webhook' },
+	{ query: 'homelab IoT sensors', subreddit: 'homelab' },
+	{ query: 'local sensors automation', subreddit: 'selfhosted' },
+	{ query: 'smart home open source protocol', subreddit: 'selfhosted' },
+	{ query: 'ESP32 REST API sensors', subreddit: 'esp32' },
+	{ query: 'without cloud subscription', subreddit: 'homeautomation' },
+	{ query: 'local only offline', subreddit: 'homeautomation' },
+	{ query: 'cancel subscription alternative', subreddit: 'homeautomation' },
+	{ query: 'open protocol certification', subreddit: 'IOT' },
+
+	// ── Smart appliances / frictionless / no data entry ──────────────────
+	{ query: '"smart fridge" tracking automatic' },
+	{ query: '"smart appliance" "data entry"' },
+	{ query: '"smart fridge" "data entry"' },
+	{ query: '"kitchen" sensors automatic tracking' },
+	{ query: '"inventory tracking" home automatic' },
+	{ query: '"smart home" "too much effort"' },
+	{ query: '"ambient" computing sensors home' },
+	{ query: '"passive tracking" home sensors' },
+	{ query: '"smart home" "pull out phone"' },
+	{ query: '"always having to open app"' },
+
+	// ── Health / quantified self / personal data ──────────────────────────
+	{ query: '"quantified self" hardware sensor' },
+	{ query: '"health tracking" hardware sensors' },
+	{ query: '"personal data" hardware local' },
+	{ query: '"weight scale" "local API"' },
+	{ query: '"smart scale" without app' },
+	{ query: 'biometrics "home server"' },
+	{ query: 'health sensors "own data"' },
+
+	// ── Home security local / no subscription ────────────────────────────
+	{ query: '"local" "security camera" "no subscription"' },
+	{ query: '"self hosted" camera NVR' },
+	{ query: '"home security" "no cloud"' },
+	{ query: '"presence sensor" local privacy' },
+	{ query: '"motion sensor" local webhook' },
+	{ query: 'camera "no subscription" local storage', subreddit: 'homelab' },
+
+	// ── Anti-ecosystem / anti-subscription / data sovereignty ────────────
+	{ query: '"data sovereignty" IoT' },
+	{ query: '"smart home" "lock in"' },
+	{ query: '"subscription" "smart home" tired' },
+	{ query: '"Matter" alternative protocol' },
+	{ query: '"open source" smart home protocol' },
+	{ query: '"who owns" smart home data' },
+	{ query: '"smart home" "privacy" local' },
+	{ query: '"IoT" "phone home" privacy' },
+	{ query: '"device" "sunset" smart home' },
+
+	// ── App/side-project builders needing hardware inputs ─────────────────
+	{ query: 'hardware sensors "side project"' },
+	{ query: 'app "real world data" sensors' },
+	{ query: '"REST API" hardware "home automation"' },
+	{ query: 'hardware inputs "web app"' },
+	{ query: '"webhook" sensors "home automation"' },
+	{ query: 'hardware sensors app', subreddit: 'SideProject' },
+	{ query: 'AI hardware sensors app', subreddit: 'LocalLLaMA' },
+	{ query: 'hardware inputs "AI agent"', subreddit: 'LocalLLaMA' },
+
+	// ── Brand / direct ────────────────────────────────────────────────────
+	{ query: 'blueraven' },
+	{ query: '"blue raven" protocol' }
 ];
 
 const REDDIT_UA = 'web:BlueRavenMonitor:1.0';
@@ -27,8 +111,11 @@ function since24h() {
 	return Math.floor(Date.now() / 1000) - 86400;
 }
 
-async function searchReddit(keyword: string): Promise<Post[]> {
-	const url = `https://www.reddit.com/search.json?q=${encodeURIComponent(keyword)}&sort=new&t=day&limit=5&type=link`;
+async function searchReddit(query: string, subreddit?: string): Promise<Post[]> {
+	const base = subreddit
+		? `https://www.reddit.com/r/${subreddit}/search.json?restrict_sr=1`
+		: `https://www.reddit.com/search.json?`;
+	const url = `${base}q=${encodeURIComponent(query)}&sort=new&t=day&limit=5&type=link`;
 	const res = await fetch(url, { headers: { 'User-Agent': REDDIT_UA } });
 	if (!res.ok) return [];
 	const data = await res.json();
@@ -46,9 +133,10 @@ async function searchReddit(keyword: string): Promise<Post[]> {
 		}));
 }
 
-async function searchHN(keyword: string): Promise<Post[]> {
-	const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(keyword)}&tags=(story,comment)&numericFilters=created_at_i>${since24h()}&hitsPerPage=5`;
+async function searchHN(query: string): Promise<Post[]> {
+	const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(query)}&tags=(story,comment)&numericFilters=created_at_i>${since24h()}&hitsPerPage=5`;
 	const res = await fetch(url);
+	if (!res.ok) return [];
 	const data = await res.json();
 	return (data.hits ?? []).map((h: any) => ({
 		id: `hn:${h.objectID}`,
@@ -66,7 +154,7 @@ function buildMessage(posts: Post[]) {
 			blocks: [
 				{
 					type: 'header',
-					text: { type: 'plain_text', text: '🔍 Social Listening — quiet day, no new threads', emoji: true }
+					text: { type: 'plain_text', text: '🔍 Social Listening — quiet today', emoji: true }
 				}
 			]
 		};
@@ -80,7 +168,7 @@ function buildMessage(posts: Post[]) {
 			type: 'header',
 			text: {
 				type: 'plain_text',
-				text: `🔍 Social Listening — ${posts.length} conversations to jump into`,
+				text: `🔍 Social Listening — ${posts.length} threads to jump into`,
 				emoji: true
 			}
 		}
@@ -120,10 +208,13 @@ export async function POST({ request }) {
 		const seen = new Set<string>();
 		const allPosts: Post[] = [];
 
-		for (const kw of KEYWORDS) {
+		// Run Reddit searches sequentially to stay within rate limits;
+		// run HN in parallel since it has no auth constraints
+		for (const { query, subreddit } of SEARCHES) {
 			const [redditPosts, hnPosts] = await Promise.all([
-				searchReddit(kw).catch(() => []),
-				searchHN(kw).catch(() => [])
+				searchReddit(query, subreddit).catch(() => []),
+				// HN doesn't support subreddit scoping — global search only
+				subreddit ? Promise.resolve([]) : searchHN(query).catch(() => [])
 			]);
 
 			for (const p of [...redditPosts, ...hnPosts]) {
@@ -136,7 +227,7 @@ export async function POST({ request }) {
 
 		allPosts.sort((a, b) => b.score - a.score);
 
-		const message = buildMessage(allPosts.slice(0, 12));
+		const message = buildMessage(allPosts.slice(0, 15));
 		const res = await fetch(SLACK_WEBHOOK_URL, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
