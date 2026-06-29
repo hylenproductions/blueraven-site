@@ -209,6 +209,7 @@ export async function POST({ request }) {
 		if (!res.ok) return json({ error: 'Slack post failed' }, { status: 500 });
 		return json({ ok: true });
 	} catch (err: any) {
-		return json({ error: err?.message ?? String(err), stack: err?.stack }, { status: 500 });
+		console.error('[analytics-report]', err);
+		return json({ error: 'Report generation failed' }, { status: 500 });
 	}
 }
