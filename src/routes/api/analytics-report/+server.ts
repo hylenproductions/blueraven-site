@@ -53,10 +53,10 @@ async function fetchGA4(auth: ExternalAccountClient) {
 		client.runReport({
 			property,
 			dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }],
-			dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+			dimensions: [{ name: 'sessionSource' }],
 			metrics: [{ name: 'sessions' }],
 			orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-			limit: 6
+			limit: 8
 		}),
 		client.runReport({
 			property,
