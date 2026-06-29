@@ -14,7 +14,7 @@ import {
 } from '$env/static/private';
 
 function buildAuthClient() {
-	return ExternalAccountClient.fromJSON({
+	const client = ExternalAccountClient.fromJSON({
 		type: 'external_account',
 		audience: `//iam.googleapis.com/projects/${GCP_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${GCP_WORKLOAD_IDENTITY_POOL_ID}/providers/${GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID}`,
 		subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
@@ -22,6 +22,13 @@ function buildAuthClient() {
 		service_account_impersonation_url: `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${GCP_SERVICE_ACCOUNT_EMAIL}:generateAccessToken`,
 		subject_token_supplier: { getSubjectToken: getVercelOidcToken }
 	});
+	if (client) {
+		client.scopes = [
+			'https://www.googleapis.com/auth/analytics.readonly',
+			'https://www.googleapis.com/auth/webmasters.readonly'
+		];
+	}
+	return client;
 }
 
 async function fetchGA4(auth: ExternalAccountClient) {
