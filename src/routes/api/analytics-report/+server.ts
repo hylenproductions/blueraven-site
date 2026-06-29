@@ -193,7 +193,11 @@ export async function POST({ request }) {
 
 	try {
 		const auth = buildAuthClient()!;
-		const [ga4, sc] = await Promise.all([fetchGA4(auth), fetchSearchConsole(auth)]);
+		const [ga4, scResult] = await Promise.all([
+			fetchGA4(auth),
+			fetchSearchConsole(auth).catch(() => ({ queries: [], pages: [] }))
+		]);
+		const sc = scResult;
 		const message = buildMessage(ga4, sc);
 
 		const res = await fetch(SLACK_WEBHOOK_URL, {
