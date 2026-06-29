@@ -184,16 +184,20 @@ export async function POST({ request }) {
 		return json({ error: 'Unauthorized' }, { status: 401 });
 	}
 
-	const auth = buildAuthClient()!;
-	const [ga4, sc] = await Promise.all([fetchGA4(auth), fetchSearchConsole(auth)]);
-	const message = buildMessage(ga4, sc);
+	try {
+		const auth = buildAuthClient()!;
+		const [ga4, sc] = await Promise.all([fetchGA4(auth), fetchSearchConsole(auth)]);
+		const message = buildMessage(ga4, sc);
 
-	const res = await fetch(SLACK_WEBHOOK_URL, {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(message)
-	});
+		const res = await fetch(SLACK_WEBHOOK_URL, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(message)
+		});
 
-	if (!res.ok) return json({ error: 'Slack post failed' }, { status: 500 });
-	return json({ ok: true });
+		if (!res.ok) return json({ error: 'Slack post failed' }, { status: 500 });
+		return json({ ok: true });
+	} catch (err: any) {
+		return json({ error: err?.message ?? String(err), stack: err?.stack }, { status: 500 });
+	}
 }
