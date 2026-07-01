@@ -186,7 +186,7 @@ function buildMessage(ga4: Awaited<ReturnType<typeof fetchGA4>>, sc: Awaited<Ret
 	};
 }
 
-export async function POST({ request }) {
+export async function GET({ request }) {
 	if (request.headers.get('authorization') !== `Bearer ${CRON_SECRET}`) {
 		return json({ error: 'Unauthorized' }, { status: 401 });
 	}
