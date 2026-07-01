@@ -6,7 +6,7 @@
 		},
 		{
 			"path": "/api/social-monitor",
-			"schedule": "0 12 * * *"
+			"schedule": "0 18 * * *"
 		}
 	]
 }
