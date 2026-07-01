@@ -1,6 +1,10 @@
 import { json } from '@sveltejs/kit';
 import { SLACK_WEBHOOK_URL, CRON_SECRET } from '$env/static/private';
 
+// Vercel Hobby caps function duration at 10s regardless of this value;
+// on Pro it raises the ceiling so the batched searches below have room to finish.
+export const config = { maxDuration: 60 };
+
 // Each search is either a global phrase or a subreddit-scoped query.
 // Subreddit searches let us use broader terms in communities where they're relevant
 // without drowning in noise from the global firehose.
@@ -208,19 +212,27 @@ export async function GET({ request }) {
 		const seen = new Set<string>();
 		const allPosts: Post[] = [];
 
-		// Run Reddit searches sequentially to stay within rate limits;
-		// run HN in parallel since it has no auth constraints
-		for (const { query, subreddit } of SEARCHES) {
-			const [redditPosts, hnPosts] = await Promise.all([
-				searchReddit(query, subreddit).catch(() => []),
-				// HN doesn't support subreddit scoping — global search only
-				subreddit ? Promise.resolve([]) : searchHN(query).catch(() => [])
-			]);
+		// Batch searches to stay well within the function's time budget —
+		// fully sequential (73 queries) risked exceeding Vercel's timeout.
+		const BATCH_SIZE = 8;
+		for (let i = 0; i < SEARCHES.length; i += BATCH_SIZE) {
+			const batch = SEARCHES.slice(i, i + BATCH_SIZE);
+			const results = await Promise.all(
+				batch.map(({ query, subreddit }) =>
+					Promise.all([
+						searchReddit(query, subreddit).catch(() => []),
+						// HN doesn't support subreddit scoping — global search only
+						subreddit ? Promise.resolve([]) : searchHN(query).catch(() => [])
+					])
+				)
+			);
 
-			for (const p of [...redditPosts, ...hnPosts]) {
-				if (!seen.has(p.id)) {
-					seen.add(p.id);
-					allPosts.push(p);
+			for (const [redditPosts, hnPosts] of results) {
+				for (const p of [...redditPosts, ...hnPosts]) {
+					if (!seen.has(p.id)) {
+						seen.add(p.id);
+						allPosts.push(p);
+					}
 				}
 			}
 		}

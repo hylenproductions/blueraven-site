@@ -13,6 +13,8 @@ import {
 	CRON_SECRET
 } from '$env/static/private';
 
+export const config = { maxDuration: 60 };
+
 function buildAuthClient() {
 	const client = ExternalAccountClient.fromJSON({
 		type: 'external_account',
